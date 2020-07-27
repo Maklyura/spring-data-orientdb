@@ -100,6 +100,7 @@ public class SimpleOrientGraphRepository<T extends EdgeInterface> extends Simple
                                       Class<T> domainClass,
                                       Class<?> repositoryInterface,
                                       OrientStrategy<T> strategy) {
+
     super(operations, domainClass, repositoryInterface, strategy);
     this.operations = operations;
     this.domainClass = domainClass;
@@ -139,11 +140,10 @@ public class SimpleOrientGraphRepository<T extends EdgeInterface> extends Simple
 
       args[0] = fromRid;
       args[1] = toRid;
-      //System.out.println("in save!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-      operations.command
+      S result = operations.<S>objectCommand
       ("CREATE EDGE " + edgeClass + " UPSERT FROM ? TO ?",
         args);
-      return entity;
+      return (S)result;
     } catch (Exception e) {
         throw new RuntimeException (e);
     }
@@ -184,7 +184,7 @@ public class SimpleOrientGraphRepository<T extends EdgeInterface> extends Simple
   @Transactional(readOnly = false)
   public void delete(String id) {
     //operations.delete(new ORecordId(id));
-    operations.command ("DELETE EDGE ?", new ORecordId(id));
+    operations.command ("DELETE EDGE WHERE @rid = ?", new ORecordId(id));
   }
 
   /* (non-Javadoc)
@@ -193,7 +193,7 @@ public class SimpleOrientGraphRepository<T extends EdgeInterface> extends Simple
   @Transactional(readOnly = false)
   public void delete(T entity) {
     //operations.delete(entity);
-    operations.command ("DELETE EDGE ?", new ORecordId(entity.getId()));
+    operations.command ("DELETE EDGE WHERE @rid = ?", new ORecordId(entity.getId()));
   }
 
   @Override

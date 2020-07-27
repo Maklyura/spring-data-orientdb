@@ -13,6 +13,8 @@ import java.util.List;
  */
 //@NoRepositoryBean
 public interface EdgeInterface extends CIInterface {
+  String getId();
+  void setId(String id);
   String getIn();
   String getOut();
   void setIn(String in);

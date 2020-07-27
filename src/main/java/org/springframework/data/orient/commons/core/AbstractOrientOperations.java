@@ -571,6 +571,20 @@ public abstract class AbstractOrientOperations<T> implements OrientOperations<T>
     return result;
   }
 
+  //@Override
+  public <RET> RET objectCommand(String sql, Object... args) {
+    ODatabaseObject db = (ODatabaseObject) dbf.db();
+    //ODatabaseObject db = ((ODatabaseObject) dbf.db());
+    List<?> temp = db.objectCommand(sql, args);
+    //RET tmp =
+    RET t = db.save(temp.get(0));
+
+    //db.commit();
+    //System.out.println(tmp.getClass().getSimpleName());
+    //return tmp;
+    return t;//.get(0);
+  }
+
   @Override
   public <RET> RET command(String sql, Object... args) {
     return ((ODatabaseObject) dbf.db()).objectCommand(sql, args);

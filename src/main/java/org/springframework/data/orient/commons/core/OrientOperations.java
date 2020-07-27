@@ -254,6 +254,8 @@ public interface OrientOperations<T> {
 
   <RET> RET queryForObject(String query, DetachMode detachMode, Object... args);
 
+  <RET> RET objectCommand(String sql, Object... args);
+
   <RET> RET command(String sql, Object... args);
 
 }

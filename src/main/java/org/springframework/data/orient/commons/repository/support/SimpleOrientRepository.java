@@ -95,6 +95,7 @@ public class SimpleOrientRepository<T> implements OrientRepository<T> {
    */
   @Transactional(readOnly = false)
   public <S extends T> S save(S entity) {
+
     return strategy.save(entity);
   }
 

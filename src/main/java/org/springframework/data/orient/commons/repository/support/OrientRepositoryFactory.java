@@ -20,6 +20,9 @@ import java.util.Optional;
 ////
 import org.springframework.data.orient.graph.repository.support.SimpleOrientGraphRepository;
 import org.springframework.data.orient.object.repository.support.SimpleOrientObjectRepository;
+import org.springframework.data.orient.graph.repository.*;
+import org.springframework.data.orient.object.repository.*;
+import org.springframework.data.orient.object.*;
 
 
 ////
@@ -59,10 +62,28 @@ public class OrientRepositoryFactory extends RepositoryFactorySupport {
     String cluster = getCustomCluster(metadata);
 
     if (cluster != null) {
-      return new SimpleOrientRepository(operations, javaType, cluster, repositoryInterface);
+      if (OrientGraphRepository.class.isAssignableFrom(repositoryInterface)) {
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        return new SimpleOrientGraphRepository
+        (operations, javaType, cluster, repositoryInterface);
+
+      }
+      if (OrientObjectRepository.class.isAssignableFrom(repositoryInterface))
+        return new SimpleOrientObjectRepository
+        ((OrientObjectOperations)operations, javaType, cluster, repositoryInterface);
+      return new SimpleOrientRepository
+      (operations, javaType, cluster, repositoryInterface);
     } else {
-      return new SimpleOrientRepository(operations, javaType, repositoryInterface);
+      if (OrientGraphRepository.class.isAssignableFrom(repositoryInterface))
+        return new SimpleOrientGraphRepository
+        (operations, javaType, repositoryInterface);
+      if (OrientObjectRepository.class.isAssignableFrom(repositoryInterface))
+        return new SimpleOrientObjectRepository
+        ((OrientObjectOperations)operations, javaType, repositoryInterface);
+      return new SimpleOrientRepository
+      (operations, javaType, repositoryInterface);
     }
+    //return new SimpleOrientRepository(operations, javaType, repositoryInterface);
   }
 
   /* (non-Javadoc)
@@ -108,4 +129,5 @@ public class OrientRepositoryFactory extends RepositoryFactorySupport {
     }
     return null;
   }
+
 }
