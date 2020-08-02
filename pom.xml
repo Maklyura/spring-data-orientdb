@@ -102,17 +102,19 @@
         <sonatypeOssDistMgmtSnapshotsUrl>https://oss.sonatype.org/content/repositories/snapshots/
         </sonatypeOssDistMgmtSnapshotsUrl>
         <!-- dependency versions -->
-        <slf4j.version>1.7.22</slf4j.version>
-        <logback.version>1.1.9</logback.version>
+        <slf4j.version>1.7.30</slf4j.version>
+        <logback.version>1.2.3</logback.version>
         <orientdb.version>3.0.18</orientdb.version>
         <aspectj.version>1.8.3</aspectj.version>
-        <spring.version>5.0.7.RELEASE</spring.version>
-        <spring.data.version>2.0.8.RELEASE</spring.data.version>
-        <spring.boot.version>2.0.3.RELEASE</spring.boot.version>
-        <jooq.version>3.9.2</jooq.version>
-        <jmh.version>1.4.1</jmh.version>
-        <junit.version>4.12</junit.version>
-        <rest.assured.version>2.4.0</rest.assured.version>
+        <spring.version>5.2.8.RELEASE</spring.version>
+        <spring.data.version>2.3.2.RELEASE</spring.data.version>
+        <spring.boot.version>2.3.2.RELEASE</spring.boot.version>
+        <jooq.version>3.13.4</jooq.version>
+        <jmh.version>1.23</jmh.version>
+        <junit.version>5.6.2</junit.version>
+        <rest.assured.version>4.3.1</rest.assured.version>
+        <commons.beanutils.version>1.9.4</commons.beanutils.version>
+        <assertj.version>3.16.1</assertj.version>
         <sonatypeOssDistMgmtSnapshotsUrl>https://oss.sonatype.org/content/repositories/snapshots/
         </sonatypeOssDistMgmtSnapshotsUrl>
     </properties>
@@ -281,22 +283,50 @@
             </dependency>
 
             <!-- spring framework -->
-        <!--    <dependency>
+            <dependency>
                 <groupId>org.springframework</groupId>
-                <artifactId>spring-framework-bom</artifactId>
+                <artifactId>spring-tx</artifactId>
                 <version>${spring.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                  <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
+                  <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                  <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-expression</artifactId>
+                  <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <optional>true</optional>
+                  <version>${spring.version}</version>
+            </dependency>
+
+            <!--  spring data -->
+           <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-commons</artifactId>
+                <version>${spring.data.version}</version>
                 <exclusions>
                     <exclusion>
-                        <groupId>commons-logging</groupId>
-                        <artifactId>commons-logging</artifactId>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-api</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>-->
-
-            <!-- spring data -->
-
+            </dependency>
 
             <!-- spring boot -->
             <dependency>
@@ -334,7 +364,6 @@
                         <artifactId>jul-to-slf4j</artifactId>
                         <groupId>org.slf4j</groupId>
                     </exclusion>
-
                 </exclusions>
             </dependency>
             <dependency>
@@ -365,7 +394,7 @@
             <dependency>
                 <groupId>commons-beanutils</groupId>
                 <artifactId>commons-beanutils</artifactId>
-                <version>1.9.2</version>
+                <version>${commons.beanutils.version}</version>
             </dependency>
 
             <!-- benchmark -->
@@ -382,14 +411,14 @@
 
             <!-- test -->
             <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
                 <version>${junit.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.assertj</groupId>
                 <artifactId>assertj-core</artifactId>
-                <version>2.5.0</version>
+                <version>${assertj.version}</version>
             </dependency>
 
             <dependency>
@@ -398,12 +427,12 @@
                 <version>${spring.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.jayway.restassured</groupId>
-                <artifactId>rest-assured</artifactId>
-                <version>${rest.assured.version}</version>
+              <groupId>io.rest-assured</groupId>
+              <artifactId>rest-assured</artifactId>
+              <version>${rest.assured.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.jayway.restassured</groupId>
+                <groupId>io.rest-assured</groupId>
                 <artifactId>json-schema-validator</artifactId>
                 <version>${rest.assured.version}</version>
                 <exclusions>
@@ -417,110 +446,6 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-      <!--  <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>-->
-      <!--  <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jul-to-slf4j</artifactId>
-        </dependency> -->
-      <!--  <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-        </dependency> -->
-      <!--  <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>log4j-over-slf4j</artifactId>
-        </dependency> -->
-    <!--    <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-        </dependency>-->
-
-        <!-- test -->
-        <!--<dependency>-->
-        <!--<groupId>org.testng</groupId>-->
-        <!--<artifactId>testng</artifactId>-->
-        <!--<scope>test</scope>-->
-
-        <!--</dependency>-->
-
-      <!--  <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>-->
-      <!--  <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <scope>test</scope>
-        </dependency> -->
-      <!--  <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <scope>test</scope>
-        </dependency> -->
-        <dependency>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-tx</artifactId>
-          <version>5.0.7.RELEASE</version>
-      </dependency>
-      <dependency>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-context</artifactId>
-            <version>5.0.7.RELEASE</version>
-      </dependency>
-      <dependency>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-beans</artifactId>
-            <version>5.0.7.RELEASE</version>
-      </dependency>
-      <dependency>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-core</artifactId>
-            <version>5.0.7.RELEASE</version>
-      </dependency>
-      <dependency>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-expression</artifactId>
-            <version>5.0.7.RELEASE</version>
-      </dependency>
-      <dependency>
-          <groupId>org.springframework</groupId>
-          <artifactId>spring-webmvc</artifactId>
-          <optional>true</optional>
-            <version>5.0.7.RELEASE</version>
-      </dependency>
-    <!--  <dependency>
-            <groupId>org.jooq</groupId>
-            <artifactId>jooq</artifactId>
-            <version>jooq.version</version>
-        </dependency>-->
-
-      <!--  spring data -->
-     <dependency>
-          <groupId>org.springframework.data</groupId>
-          <artifactId>spring-data-commons</artifactId>
-          <version>2.0.3.RELEASE</version>
-          <exclusions>
-              <exclusion>
-                  <groupId>org.slf4j</groupId>
-                  <artifactId>slf4j-api</artifactId>
-              </exclusion>
-          </exclusions>
-      </dependency>
-
-      <!--  orientdb -->
-    <!--  <dependency>
-          <groupId>com.orientechnologies</groupId>
-          <artifactId>orientdb-client</artifactId>
-      </dependency>-->
-    <!--  <dependency>
-          <groupId>com.orientechnologies</groupId>
-          <artifactId>orientdb-object</artifactId>
-          <version>orientdb.version</version>
-      </dependency>-->
     </dependencies>
 
     <pluginRepositories>

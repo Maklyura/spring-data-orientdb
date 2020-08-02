@@ -9,5 +9,5 @@ import org.springframework.data.orient.commons.repository.OrientRepository;
  * @param <T> the generic type to handle
  */
 public interface OrientGraphRepository<T> extends OrientRepository<T> {
-
+  //<S extends T, V> S saveEdge(S edge, V vertexFrom, V vertexTo);
 }

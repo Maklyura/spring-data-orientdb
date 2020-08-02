@@ -143,6 +143,7 @@ public class SimpleOrientGraphRepository<T extends EdgeInterface> extends Simple
       S result = operations.<S>objectCommand
       ("CREATE EDGE " + edgeClass + " UPSERT FROM ? TO ?",
         args);
+
       return (S)result;
     } catch (Exception e) {
         throw new RuntimeException (e);
